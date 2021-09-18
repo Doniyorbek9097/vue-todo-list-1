@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+	<style>
+		.active{
+			color: red;
+
+		}
+	</style>
+</head>
+<body>
+	
+	<div id="app">
+		<input type="text" v-model="value"><button @click="add">+</button>
+		<ul>
+			<li v-for="(item,index) in list" :class="{active:item === 'salom'}">
+				{{item}}
+				<button @click="edit(index)">edit</button>
+				<button @click="del(index)">delete</button>
+				</li>
+		</ul>
+	</div>
+	
+
+
+	<script >
+		var app = new Vue({
+		  el: "#app",
+
+		  data () {
+		    return {
+		      list:[],
+		      value:"",
+		      isEditing:""
+		    };
+		  },
+
+		  methods:{
+		  	add(){
+		  		if (typeof(this.isEditing) === "number") {
+		  			this.list.splice(this.isEditing,1,this.value)
+		  			this.isEditing = "";
+		  		}else if(this.value === ""){
+		  			this.list.push();
+		  		}else{
+		  			this.list.push(this.value);
+		  		}
+
+		  		this.value = "";
+		  	},
+
+		  	edit(index){
+
+		  		this.isEditing = index;
+		  		this.value = this.list[index];
+
+		  		
+		  	},
+
+		  	del(index){
+		  		this.list.splice(index,1);
+		  	},
+
+
+
+
+
+		  }
+		
+		})
+
+	</script>
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
